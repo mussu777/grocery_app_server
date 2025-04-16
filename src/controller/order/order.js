@@ -34,10 +34,9 @@ export const createOrder = async (req, reply) => {
     });
 
     let savedOrder = await newOrder.save();
-    savedOrder = await savedOrder.populate([
-      { path: "items.item" },
-    ]);
-    console.log(savedOrder);
+    // savedOrder = await savedOrder.populate([
+    //   { path: "items.item" },
+    // ]);
 
     return reply.status(201).send(savedOrder);
   } catch (error) {
@@ -145,6 +144,7 @@ export const getOrders = async (req, reply) => {
 export const getOrderById = async (req, reply) => {
   try {
     const { orderId } = req.params;
+    console.log(orderId)
     const order = await Order.findById(orderId).populate(
       "customer branch items.item deliveryPartner"
     );
